@@ -2,6 +2,8 @@
 
 import * as Phaser from 'phaser';
 
+import { Star } from 'star';
+
 class GameState extends Phaser.State {
   preload() {
 
@@ -9,6 +11,8 @@ class GameState extends Phaser.State {
 
   create() {
     this.graphics = this.game.add.graphics(0, 0);
+    this.stars = [];
+    this.genStars(50);
   }
 
   update() {
@@ -17,9 +21,18 @@ class GameState extends Phaser.State {
 
   render() {
     this.graphics.clear();
-    this.graphics.beginFill(0xffffff);
-    this.graphics.drawCircle(50, 50, 100);
-    this.graphics.endFill();
+    for (const star of this.stars) {
+      star.draw(this.graphics);
+    }
+  }
+
+  genStars(num) {
+    this.stars = [];
+    for (let i = 0; i < num; i++) {
+      this.stars.push(new Star(Math.random() * this.game.width,
+                          Math.random() * this.game.height,
+                          Math.round(Math.random() * 7)));
+    }
   }
 }
 
