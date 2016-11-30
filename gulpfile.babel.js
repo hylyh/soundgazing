@@ -59,10 +59,9 @@ gulp.task('buildjs', () =>
 
 gulp.task('buildhtml', () =>
   gulp.src(paths.html)
-    .pipe(replace('css/app.css', 'app.min.css'))
     .pipe(replace('lib/system.js', 'app.min.js'))
     .pipe(replace('<script src="config.js"></script>', ''))
-    .pipe(replace("<script>System.import('main')</script>", ''))
+    .pipe(replace("<script>System.import('main');</script>", ''))
     .pipe(htmlMin({ collapseWhitespace: true }))
     .pipe(gulp.dest(paths.dist)));
 
