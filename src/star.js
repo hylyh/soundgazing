@@ -8,8 +8,14 @@ class Star {
   }
 
   draw(graphics) {
-    graphics.beginFill(0xffffff);
-    graphics.drawCircle(this.x, this.y, (this.size + 1) * 3);
+    // Draw a really dim halo around the star
+    graphics.beginFill(0xffffff, 0.05);
+    graphics.drawCircle(this.x, this.y, (this.size + 0.5) * 3);
+    graphics.endFill();
+
+    // Draw the star itself
+    graphics.beginFill(0xffffff, 0.9);
+    graphics.drawCircle(this.x, this.y, (this.size + 0.5) * 0.7);
     graphics.endFill();
   }
 }

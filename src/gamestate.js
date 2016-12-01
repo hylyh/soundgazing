@@ -12,7 +12,7 @@ class GameState extends Phaser.State {
   create() {
     this.graphics = this.game.add.graphics(0, 0);
     this.stars = [];
-    this.genStars(50);
+    this.genStars(100);
   }
 
   update() {
