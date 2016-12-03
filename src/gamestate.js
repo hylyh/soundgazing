@@ -57,10 +57,28 @@ class GameState extends Phaser.State {
       if (pointer.isUp && !this.pointerLastUp) {
         if (this.dragStartStar !== null && closestStar !== this.dragStartStar) {
           // Dragged between two stars
-          this.connections.push([this.dragStartStar.id, closestStar.id]);
+          let exists = false;
+          let existCon = null;
+          for (const connection of this.connections) {
+            // See if this connection already exists
+            if ((connection[0] === this.dragStartStar.id && connection[1] === closestStar.id) ||
+                (connection[1] === this.dragStartStar.id && connection[0] === closestStar.id)) {
+              exists = true;
+              existCon = connection;
+              break;
+            }
+          }
+
+          if (exists) {
+            // This connection already exists, so remove it
+            const index = this.connections.indexOf(existCon);
+            this.connections.splice(index, 1);
+          } else {
+            // This connection is new
+            this.connections.push([this.dragStartStar.id, closestStar.id]);
+          }
           this.dragStartStar = null;
-        }
-        else {
+        } else {
           // Not dragging or ended at the same star
           this.dragStartStar = null;
         }
@@ -97,7 +115,8 @@ class GameState extends Phaser.State {
     if (this.dragStartStar !== null) {
       this.graphics.lineStyle(1, 0xffffff, 1);
       this.graphics.moveTo(this.dragStartStar.x - 1, this.dragStartStar.y - 1);
-      this.graphics.lineTo(this.game.input.activePointer.x - 1, this.game.input.activePointer.y - 1);
+      this.graphics.lineTo(this.game.input.activePointer.x - 1,
+                           this.game.input.activePointer.y - 1);
       this.graphics.endFill();
     }
   }
