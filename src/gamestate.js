@@ -138,6 +138,21 @@ class GameState extends Phaser.State {
                                Math.round(Math.random() * 7)); // size
     }
   }
+
+  getShareUrl() {
+    // Serialize stars down to their component parts
+    let serializedStars = '';
+    for (const star of this.stars) {
+      serializedStars += `${Math.round(star.x * 1000)}x${Math.round(star.y * 1000)}x${star.size}x`;
+    }
+
+    let serializedCons = '';
+    for (const con of this.connections) {
+      serializedCons += `${con[0]}x${con[1]}x`;
+    }
+
+    return `${serializedStars}y${serializedCons}`;
+  }
 }
 
 export { GameState };
