@@ -13,6 +13,10 @@ class GameState extends Phaser.State {
     this.graphics = this.game.add.graphics(0, 0);
     this.stars = {};
     this.connections = [];
+    this.dragStartStar = null;
+    this.pointerLastDown = false;
+    this.pointerLastUp = false;
+
     this.genStars(100);
   }
 
@@ -46,7 +50,29 @@ class GameState extends Phaser.State {
 
     if (closestStar !== null) {
       closestStar.hovered = true;
+
+      if (pointer.isDown && !this.pointerLastDown) {
+        this.dragStartStar = closestStar;
+      }
+      if (pointer.isUp && !this.pointerLastUp) {
+        if (this.dragStartStar !== null && closestStar !== this.dragStartStar) {
+          // Dragged between two stars
+          this.connections.push([this.dragStartStar.id, closestStar.id]);
+          this.dragStartStar = null;
+        }
+        else {
+          // Not dragging or ended at the same star
+          this.dragStartStar = null;
+        }
+      }
+    } else {
+      if (pointer.isUp && !this.pointerLastUp) {
+        // Mouse up with no star nearby, stop drag
+        this.dragStartStar = null;
+      }
     }
+
+    this.pointerLastDown = pointer.isDown;
   }
 
   render() {
@@ -65,6 +91,13 @@ class GameState extends Phaser.State {
       this.graphics.lineStyle(1, 0xffffff, 1);
       this.graphics.moveTo(star0.x - 1, star0.y - 1);
       this.graphics.lineTo(star1.x - 1, star1.y - 1);
+      this.graphics.endFill();
+    }
+
+    if (this.dragStartStar !== null) {
+      this.graphics.lineStyle(1, 0xffffff, 1);
+      this.graphics.moveTo(this.dragStartStar.x - 1, this.dragStartStar.y - 1);
+      this.graphics.lineTo(this.game.input.activePointer.x - 1, this.game.input.activePointer.y - 1);
       this.graphics.endFill();
     }
   }
