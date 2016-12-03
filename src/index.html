@@ -3,10 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Self Care Jam!</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
   <style>
     html, body, canvas {
         padding: 0;
         margin: 0;
+    }
+
+    #info {
+      display: inline-block;
+      color: white;
+      z-index: 999;
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    a {
+      color: white;
     }
   </style>
 </head>
@@ -14,5 +29,9 @@
     <script src="lib/system.js"></script>
     <script src="config.js"></script>
     <script>System.import('main');</script>
+
+    <div id="info">
+      <a href="//github.com/jessicahayley/self-care-jam/">code</a> by <a href="//twitter.com/imjayhay">@imjayhay</a> music by <a href="//twitter.com/kuraine">@kuraine</a>
+    </div>
 </body>
 </html>

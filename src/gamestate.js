@@ -10,6 +10,8 @@ class GameState extends Phaser.State {
   }
 
   create() {
+    this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+
     this.graphics = this.game.add.graphics(0, 0);
     this.stars = {};
     this.connections = [];
@@ -27,11 +29,12 @@ class GameState extends Phaser.State {
     let closestDist = -1;
     let closestStar = null;
     for (const star of this.stars) {
+      const starPos = star.getPixelPos();
       star.hovered = false;
 
       // Get the distance from the star to the pointer
-      const dist = Math.sqrt((pointer.x - star.x) * (pointer.x - star.x) +
-                             (pointer.y - star.y) * (pointer.y - star.y));
+      const dist = Math.sqrt((pointer.x - starPos.x) * (pointer.x - starPos.x) +
+                             (pointer.y - starPos.y) * (pointer.y - starPos.y));
 
       // Past the max threshold
       if (dist > maxDist) continue;
@@ -103,8 +106,8 @@ class GameState extends Phaser.State {
 
     // Draw the connections between the stars
     for (const connection of this.connections) {
-      const star0 = this.stars[connection[0]];
-      const star1 = this.stars[connection[1]];
+      const star0 = this.stars[connection[0]].getPixelPos();
+      const star1 = this.stars[connection[1]].getPixelPos();
 
       this.graphics.lineStyle(1, 0xffffff, 1);
       this.graphics.moveTo(star0.x - 1, star0.y - 1);
@@ -112,21 +115,26 @@ class GameState extends Phaser.State {
       this.graphics.endFill();
     }
 
+    // If dragging draw a line from the star star to the drag pos
     if (this.dragStartStar !== null) {
+      const dragStarPos = this.dragStartStar.getPixelPos();
       this.graphics.lineStyle(1, 0xffffff, 1);
-      this.graphics.moveTo(this.dragStartStar.x - 1, this.dragStartStar.y - 1);
+      this.graphics.moveTo(dragStarPos.x - 1, dragStarPos.y - 1);
       this.graphics.lineTo(this.game.input.activePointer.x - 1,
                            this.game.input.activePointer.y - 1);
       this.graphics.endFill();
     }
   }
 
+  resize() {
+  }
+
   genStars(num) {
     this.stars = [];
     for (let i = 0; i < num; i++) {
-      this.stars[i] = new Star(i, // id
-                               Math.random() * this.game.width, // x
-                               Math.random() * this.game.height, // y
+      this.stars[i] = new Star(this.game, i,
+                               Math.random() * 2 - 1, // x
+                               Math.random() * 2 - 1, // y
                                Math.round(Math.random() * 7)); // size
     }
   }
