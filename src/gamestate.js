@@ -23,6 +23,7 @@ class GameState extends Phaser.State {
     this.game.load.audio('star-soft-4', 'audio/SFX_StarNoise_Soft_03.wav');
     this.game.load.audio('star-soft-5', 'audio/SFX_StarNoise_Soft_02.wav');
     this.game.load.audio('star-soft-6', 'audio/SFX_StarNoise_Soft_01.wav');
+    this.game.load.audio('bgm', 'audio/BGM_AmbientLooping.wav');
   }
 
   create() {
@@ -37,6 +38,8 @@ class GameState extends Phaser.State {
              this.game.add.audio('star-soft-4'), this.game.add.audio('star-soft-5'),
              this.game.add.audio('star-soft-6')],
     };
+    this.bgm = this.game.add.audio('bgm');
+    this.bgm.play('', 0, 1, true);
 
     this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 
