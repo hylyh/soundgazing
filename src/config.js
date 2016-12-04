@@ -18,12 +18,13 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.6",
     "path": "github:jspm/nodelibs-path@0.1.0",
+    "pf-perlin": "npm:pf-perlin@1.0.5",
     "phaser": "github:photonstorm/phaser@2.6.2",
     "request": "npm:request@2.71.0",
     "url": "github:jspm/nodelibs-url@0.1.0",
     "whatwg-fetch": "npm:whatwg-fetch@0.11.0",
     "github:jspm/nodelibs-assert@0.1.0": {
-      "assert": "npm:assert@1.3.0"
+      "assert": "npm:assert@1.4.1"
     },
     "github:jspm/nodelibs-buffer@0.1.0": {
       "buffer": "npm:buffer@3.6.0"
@@ -62,7 +63,7 @@ System.config({
       "path-browserify": "npm:path-browserify@0.0.0"
     },
     "github:jspm/nodelibs-process@0.1.2": {
-      "process": "npm:process@0.11.2"
+      "process": "npm:process@0.11.9"
     },
     "github:jspm/nodelibs-punycode@0.1.0": {
       "punycode": "npm:punycode@1.3.2"
@@ -120,7 +121,10 @@ System.config({
       "stream": "github:jspm/nodelibs-stream@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:assert@1.3.0": {
+    "npm:assert@1.4.1": {
+      "assert": "github:jspm/nodelibs-assert@0.1.0",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
       "util": "npm:util@0.10.3"
     },
     "npm:async@1.5.2": {
@@ -222,7 +226,7 @@ System.config({
       "base64-js": "npm:base64-js@0.0.8",
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "ieee754": "npm:ieee754@1.1.6",
+      "ieee754": "npm:ieee754@1.1.8",
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
@@ -509,14 +513,19 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
+    "npm:pf-perlin@1.0.5": {
+      "random-seed": "npm:random-seed@0.3.0"
+    },
     "npm:pinkie-promise@2.0.1": {
       "pinkie": "npm:pinkie@2.0.4"
     },
     "npm:process-nextick-args@1.0.6": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:process@0.11.2": {
-      "assert": "github:jspm/nodelibs-assert@0.1.0"
+    "npm:process@0.11.9": {
+      "assert": "github:jspm/nodelibs-assert@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "vm": "github:jspm/nodelibs-vm@0.1.0"
     },
     "npm:pseudomap@1.0.2": {
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -531,6 +540,10 @@ System.config({
       "randombytes": "npm:randombytes@2.0.3"
     },
     "npm:punycode@1.3.2": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:random-seed@0.3.0": {
+      "json-stringify-safe": "npm:json-stringify-safe@5.0.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:randombytes@2.0.3": {
@@ -647,7 +660,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:timers-browserify@1.4.2": {
-      "process": "npm:process@0.11.2"
+      "process": "npm:process@0.11.9"
     },
     "npm:tough-cookie@2.2.2": {
       "net": "github:jspm/nodelibs-net@0.1.2",

@@ -90,6 +90,8 @@ class GameState extends Phaser.State {
     let closestDist = -1;
     let closestStar = null;
     for (const star of this.stars) {
+      star.update();
+
       const starPos = star.getPixelPos();
       star.hovered = false;
 
