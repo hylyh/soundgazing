@@ -9,10 +9,35 @@ const API_KEY = '260122bb7522abfeda91edcd82e3defff3c5e1c7'; // ehhhh
 
 class GameState extends Phaser.State {
   preload() {
-
+    this.game.load.audio('star-loud-0', 'audio/SFX_StarNoise_Loud_01.wav');
+    this.game.load.audio('star-loud-1', 'audio/SFX_StarNoise_Loud_02.wav');
+    this.game.load.audio('star-loud-2', 'audio/SFX_StarNoise_Loud_03.wav');
+    this.game.load.audio('star-loud-3', 'audio/SFX_StarNoise_Loud_04.wav');
+    this.game.load.audio('star-loud-4', 'audio/SFX_StarNoise_Loud_05.wav');
+    this.game.load.audio('star-loud-5', 'audio/SFX_StarNoise_Loud_06.wav');
+    this.game.load.audio('star-loud-6', 'audio/SFX_StarNoise_Loud_07.wav');
+    this.game.load.audio('star-soft-0', 'audio/SFX_StarNoise_Soft_01.wav');
+    this.game.load.audio('star-soft-1', 'audio/SFX_StarNoise_Soft_02.wav');
+    this.game.load.audio('star-soft-2', 'audio/SFX_StarNoise_Soft_03.wav');
+    this.game.load.audio('star-soft-3', 'audio/SFX_StarNoise_Soft_04.wav');
+    this.game.load.audio('star-soft-4', 'audio/SFX_StarNoise_Soft_05.wav');
+    this.game.load.audio('star-soft-5', 'audio/SFX_StarNoise_Soft_06.wav');
+    this.game.load.audio('star-soft-6', 'audio/SFX_StarNoise_Soft_07.wav');
   }
 
   create() {
+    // Set up the audio
+    this.starSounds = {
+      loud: [this.game.add.audio('star-loud-0'), this.game.add.audio('star-loud-1'),
+             this.game.add.audio('star-loud-2'), this.game.add.audio('star-loud-3'),
+             this.game.add.audio('star-loud-4'), this.game.add.audio('star-loud-5'),
+             this.game.add.audio('star-loud-6')],
+      soft: [this.game.add.audio('star-soft-0'), this.game.add.audio('star-soft-1'),
+             this.game.add.audio('star-soft-2'), this.game.add.audio('star-soft-3'),
+             this.game.add.audio('star-soft-4'), this.game.add.audio('star-soft-5'),
+             this.game.add.audio('star-soft-6')],
+    };
+
     this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 
     this.graphics = this.game.add.graphics(0, 0);
@@ -21,6 +46,7 @@ class GameState extends Phaser.State {
     this.dragStartStar = null;
     this.pointerLastDown = false;
     this.pointerLastUp = false;
+    this.lastClosestStar = null;
 
     if (window.location.hash !== '') {
       // If there's something in the hash, try to load it
@@ -69,10 +95,16 @@ class GameState extends Phaser.State {
     }
 
     if (closestStar !== null) {
+      if (closestStar !== this.lastClosestStar) {
+        // New closest star
+        this.starSounds.soft[closestStar.size].play();
+      }
+
       closestStar.hovered = true;
 
       if (pointer.isDown && !this.pointerLastDown) {
         this.dragStartStar = closestStar;
+        this.starSounds.loud[this.dragStartStar.size].play();
       }
       if (pointer.isUp && !this.pointerLastUp) {
         if (this.dragStartStar !== null && closestStar !== this.dragStartStar) {
@@ -96,6 +128,7 @@ class GameState extends Phaser.State {
           } else {
             // This connection is new
             this.connections.push([this.dragStartStar.id, closestStar.id]);
+            this.starSounds.loud[closestStar.size].play();
           }
           this.dragStartStar = null;
         } else {
@@ -111,6 +144,7 @@ class GameState extends Phaser.State {
     }
 
     this.pointerLastDown = pointer.isDown;
+    this.lastClosestStar = closestStar;
   }
 
   render() {
@@ -230,7 +264,7 @@ class GameState extends Phaser.State {
       this.stars[i] = new Star(this.game, i,
                                Math.random() * 2 - 1, // x
                                Math.random() * 2 - 1, // y
-                               Math.round(Math.random() * 7)); // size
+                               Math.round(Math.random() * 6)); // size
     }
   }
 
