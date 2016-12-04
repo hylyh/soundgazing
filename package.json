@@ -21,7 +21,9 @@
     "url": "https://github.com/jessicahayley/self-care-jam/issues"
   },
   "homepage": "https://github.com/jessicahayley/self-care-jam/#readme",
-  "dependencies": {},
+  "dependencies": {
+    "pf-perlin": "^1.0.5"
+  },
   "devDependencies": {
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.0.2",
@@ -54,6 +56,7 @@
     },
     "dependencies": {
       "babel-polyfill": "npm:babel-polyfill@^6.7.4",
+      "pf-perlin": "npm:pf-perlin@^1.0.5",
       "phaser": "github:photonstorm/phaser@^2.6.2",
       "url": "github:jspm/nodelibs-url@^0.1.0",
       "whatwg-fetch": "npm:whatwg-fetch@^0.11.0"
