@@ -19,7 +19,14 @@ class GameState extends Phaser.State {
     this.pointerLastDown = false;
     this.pointerLastUp = false;
 
-    this.genStars(100);
+    if (window.location.hash !== '') {
+      // If there's something in the hash, try to load it
+      this.loadStars(window.location.hash);
+      // window.location.hash = '';
+    } else {
+      // Otherwise, randomly create some stars
+      this.genStars(100);
+    }
   }
 
   update() {
@@ -126,7 +133,85 @@ class GameState extends Phaser.State {
     }
   }
 
-  resize() {
+  loadStars(string) {
+    // This function is going to be kinda gross
+    // Sorry
+
+    this.stars = [];
+
+    let buildNum = ''; // Accummulate the digits of a number
+
+    const split = string.split('y');
+    const starString = split[0];
+    const conString = split[1];
+
+    // Parse the stars!
+
+    let starStage = 0; // 0, 1, 2 for x, y, and size
+    let x;
+    let y;
+    let size;
+    let i = 0;
+
+    for (const char of starString) {
+      if (char === 'x') {
+        if (buildNum !== '') {
+          if (starStage === 0) {
+            x = parseInt(buildNum, 10);
+          } else if (starStage === 1) {
+            y = parseInt(buildNum, 10);
+          } else if (starStage === 2) {
+            size = parseInt(buildNum, 10);
+          } else {
+            console.error(`Invalid star stage ${starStage}`);
+            break;
+          }
+        }
+
+        if (starStage === 2) {
+          // We have all the information required for a star!
+          this.stars[i] = new Star(this.game, i, x / 1000.0, y / 1000.0, size);
+          starStage = 0;
+          i++;
+        } else {
+          starStage++;
+        }
+        buildNum = '';
+      } else {
+        if (char !== '#') {
+          buildNum += char;
+        }
+      }
+    }
+
+    // Parse the connections!
+
+    let conStage = 0; // 1, 2 for first and second connection id
+    let id1;
+    let id2;
+    buildNum = '';
+
+    for (const char of conString) {
+      if (char === 'x') {
+        if (conStage === 0) {
+          id1 = parseInt(buildNum, 10);
+        } else if (conStage === 1) {
+          id2 = parseInt(buildNum, 10);
+        } else {
+          console.error(`Invalid connection stage ${conStage}`);
+        }
+
+        if (conStage === 1) {
+          this.connections.push([id1, id2]);
+          conStage = 0;
+        } else {
+          conStage++;
+        }
+        buildNum = '';
+      } else {
+        buildNum += char;
+      }
+    }
   }
 
   genStars(num) {
