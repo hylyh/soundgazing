@@ -4,6 +4,9 @@ import * as Phaser from 'phaser';
 
 import { Star } from 'star';
 
+const API_URL = 'https://api-ssl.bitly.com/v3/shorten';
+const API_KEY = '260122bb7522abfeda91edcd82e3defff3c5e1c7'; // ehhhh
+
 class GameState extends Phaser.State {
   preload() {
 
@@ -29,9 +32,9 @@ class GameState extends Phaser.State {
     }
 
     document.getElementById('share').onclick = (e) => {
-      // Generate a share url
-      const info = this.getShareUrl();
-      window.location = `#${info}`;
+      this.shortenUrl(`http://jayhay.me/self-care-jam#${this.getShareUrl()}`, (surl) => {
+        document.getElementById('link').innerHTML = `<a href="${surl}" target="_blank">${surl}</a>`;
+      });
       e.preventDefault();
     };
   }
@@ -244,6 +247,23 @@ class GameState extends Phaser.State {
     }
 
     return `${serializedStars}y${serializedCons}`;
+  }
+
+  shortenUrl(url, callback) {
+    const http = new XMLHttpRequest();
+
+    const fullUrl = `${API_URL}?access_token=${API_KEY}&longUrl=${encodeURIComponent(url)}`;
+
+    http.onreadystatechange = () => {
+      if (http.readyState === 4 && http.status === 200) {
+        console.log(http.responseText);
+        callback(JSON.parse(http.responseText).data.url);
+      } else if (http.readyState === 4) {
+        console.error(`http ${http.status}: ${http.responseText}`);
+      }
+    };
+    http.open('GET', fullUrl, true);
+    http.send(null);
   }
 }
 
