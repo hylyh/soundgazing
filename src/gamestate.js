@@ -27,6 +27,13 @@ class GameState extends Phaser.State {
       // Otherwise, randomly create some stars
       this.genStars(100);
     }
+
+    document.getElementById('share').onclick = (e) => {
+      // Generate a share url
+      const info = this.getShareUrl();
+      window.location = `#${info}`;
+      e.preventDefault();
+    };
   }
 
   update() {
