@@ -9,20 +9,20 @@ const API_KEY = '260122bb7522abfeda91edcd82e3defff3c5e1c7'; // ehhhh
 
 class GameState extends Phaser.State {
   preload() {
-    this.game.load.audio('star-loud-0', 'audio/SFX_StarNoise_Loud_01.wav');
-    this.game.load.audio('star-loud-1', 'audio/SFX_StarNoise_Loud_02.wav');
-    this.game.load.audio('star-loud-2', 'audio/SFX_StarNoise_Loud_03.wav');
+    this.game.load.audio('star-loud-0', 'audio/SFX_StarNoise_Loud_07.wav');
+    this.game.load.audio('star-loud-1', 'audio/SFX_StarNoise_Loud_06.wav');
+    this.game.load.audio('star-loud-2', 'audio/SFX_StarNoise_Loud_05.wav');
     this.game.load.audio('star-loud-3', 'audio/SFX_StarNoise_Loud_04.wav');
-    this.game.load.audio('star-loud-4', 'audio/SFX_StarNoise_Loud_05.wav');
-    this.game.load.audio('star-loud-5', 'audio/SFX_StarNoise_Loud_06.wav');
-    this.game.load.audio('star-loud-6', 'audio/SFX_StarNoise_Loud_07.wav');
-    this.game.load.audio('star-soft-0', 'audio/SFX_StarNoise_Soft_01.wav');
-    this.game.load.audio('star-soft-1', 'audio/SFX_StarNoise_Soft_02.wav');
-    this.game.load.audio('star-soft-2', 'audio/SFX_StarNoise_Soft_03.wav');
+    this.game.load.audio('star-loud-4', 'audio/SFX_StarNoise_Loud_03.wav');
+    this.game.load.audio('star-loud-5', 'audio/SFX_StarNoise_Loud_02.wav');
+    this.game.load.audio('star-loud-6', 'audio/SFX_StarNoise_Loud_01.wav');
+    this.game.load.audio('star-soft-0', 'audio/SFX_StarNoise_Soft_07.wav');
+    this.game.load.audio('star-soft-1', 'audio/SFX_StarNoise_Soft_06.wav');
+    this.game.load.audio('star-soft-2', 'audio/SFX_StarNoise_Soft_05.wav');
     this.game.load.audio('star-soft-3', 'audio/SFX_StarNoise_Soft_04.wav');
-    this.game.load.audio('star-soft-4', 'audio/SFX_StarNoise_Soft_05.wav');
-    this.game.load.audio('star-soft-5', 'audio/SFX_StarNoise_Soft_06.wav');
-    this.game.load.audio('star-soft-6', 'audio/SFX_StarNoise_Soft_07.wav');
+    this.game.load.audio('star-soft-4', 'audio/SFX_StarNoise_Soft_03.wav');
+    this.game.load.audio('star-soft-5', 'audio/SFX_StarNoise_Soft_02.wav');
+    this.game.load.audio('star-soft-6', 'audio/SFX_StarNoise_Soft_01.wav');
   }
 
   create() {
