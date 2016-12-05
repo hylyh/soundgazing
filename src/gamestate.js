@@ -148,7 +148,7 @@ class GameState extends Phaser.State {
           } else {
             // This connection is new
             this.connections.push([this.dragStartStar.id, closestStar.id]);
-            closestStar.playSound(true);
+            closestStar.playSound(true, 'noprop');
           }
           this.dragStartStar = null;
         } else {

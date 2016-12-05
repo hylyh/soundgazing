@@ -76,7 +76,7 @@ class Star {
     };
   }
 
-  playSound(loud) {
+  playSound(loud, originIds) {
     this.rippling = true;
     if (loud) {
       this.game.state.getCurrentState().starSounds.loud[this.size].play();
@@ -90,6 +90,24 @@ class Star {
       this.maxRipple = 15;
       this.rippleSpeed = 0.5;
       this.rippleFilled = true;
+    }
+
+    if (loud && originIds !== 'noprop') {
+      const delay = 500;
+      const ids = originIds || [];
+      ids.push(this.id);
+      setTimeout(() => {
+        for (const con of this.game.state.getCurrentState().connections) {
+          if (con[0] === this.id) {
+            if (ids.indexOf(con[1]) !== -1) continue;
+            this.game.state.getCurrentState().stars[con[1]].playSound(true, ids);
+          }
+          if (con[1] === this.id) {
+            if (ids.indexOf(con[0]) !== -1) continue;
+            this.game.state.getCurrentState().stars[con[0]].playSound(true, ids);
+          }
+        }
+      }, delay);
     }
   }
 }
