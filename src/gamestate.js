@@ -39,6 +39,8 @@ class GameState extends Phaser.State {
                                          'audio/SFX_StarNoise_Soft_01.mp3']);
     this.game.load.audio('bgm', ['audio/BGM_AmbientLooping.ogg',
                                  'audio/BGM_AmbientLooping.mp3']);
+
+    this.game.load.image('us', 'images/us.png');
   }
 
   create() {
@@ -55,6 +57,11 @@ class GameState extends Phaser.State {
     };
     this.bgm = this.game.add.audio('bgm');
     this.bgm.play('', 0, 1, true);
+
+    this.usBg = this.game.add.image(0, this.game.height, 'us');
+    this.usBg.anchor.set(0, 1);
+    this.usBg.height = this.game.width / this.usBg.width * this.usBg.height;
+    this.usBg.width = this.game.width;
 
     this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 
@@ -195,6 +202,11 @@ class GameState extends Phaser.State {
                            this.game.input.activePointer.y - 1);
       this.graphics.endFill();
     }
+  }
+
+  resize() {
+    this.usBg.height = this.game.width / this.usBg.width * this.usBg.height;
+    this.usBg.width = this.game.width;
   }
 
   loadStars(string) {
