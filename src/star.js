@@ -12,10 +12,6 @@ class Star {
     this.alpha = 1;
 
     this.hovered = false;
-    this.lastHovered = false;
-
-    this.clicked = false;
-    this.lastClicked = false;
 
     this.rippling = false;
     this.rippleRad = 0;
@@ -30,20 +26,6 @@ class Star {
   update() {
     this.alpha = this.perlin.get((new Date().getTime() - this.startTime) / 200);
 
-    if (this.hovered && !this.lastHovered) {
-      this.rippling = true;
-      this.rippleRad = 0;
-      this.maxRipple = 15;
-      this.rippleSpeed = 0.5;
-    }
-
-    if (this.clicked && !this.lastClicked) {
-      this.rippling = true;
-      this.rippleRad = 5;
-      this.maxRipple = 30;
-      this.rippleSpeed = 0.25;
-    }
-
     if (this.rippling) {
       this.rippleRad += this.rippleSpeed;
 
@@ -51,9 +33,6 @@ class Star {
         this.rippling = false;
       }
     }
-
-    this.lastHovered = this.hovered;
-    this.lastClicked = this.clicked;
   }
 
   draw(graphics) {
@@ -88,6 +67,21 @@ class Star {
       x: this.game.width / 2 + this.x * (this.game.width / 2),
       y: this.game.height / 2 + this.y * (this.game.height / 2),
     };
+  }
+
+  playSound(loud) {
+    this.rippling = true;
+    if (loud) {
+      this.game.state.getCurrentState().starSounds.loud[this.size].play();
+      this.rippleRad = 5;
+      this.maxRipple = 30;
+      this.rippleSpeed = 0.25;
+    } else {
+      this.game.state.getCurrentState().starSounds.soft[this.size].play();
+      this.rippleRad = 0;
+      this.maxRipple = 15;
+      this.rippleSpeed = 0.5;
+    }
   }
 }
 

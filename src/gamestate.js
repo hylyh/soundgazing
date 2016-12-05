@@ -94,7 +94,6 @@ class GameState extends Phaser.State {
 
       const starPos = star.getPixelPos();
       star.hovered = false;
-      star.clicked = false;
 
       // Get the distance from the star to the pointer
       const dist = Math.sqrt((pointer.x - starPos.x) * (pointer.x - starPos.x) +
@@ -118,15 +117,14 @@ class GameState extends Phaser.State {
     if (closestStar !== null) {
       if (closestStar !== this.lastClosestStar) {
         // New closest star
-        this.starSounds.soft[closestStar.size].play();
+        closestStar.playSound(false);
       }
 
       closestStar.hovered = true;
 
       if (pointer.isDown && !this.pointerLastDown) {
         this.dragStartStar = closestStar;
-        this.starSounds.loud[this.dragStartStar.size].play();
-        this.dragStartStar.clicked = true;
+        this.dragStartStar.playSound(true);
       }
       if (pointer.isUp && !this.pointerLastUp) {
         if (this.dragStartStar !== null && closestStar !== this.dragStartStar) {
@@ -150,8 +148,7 @@ class GameState extends Phaser.State {
           } else {
             // This connection is new
             this.connections.push([this.dragStartStar.id, closestStar.id]);
-            this.starSounds.loud[closestStar.size].play();
-            closestStar.clicked = true;
+            closestStar.playSound(true);
           }
           this.dragStartStar = null;
         } else {
