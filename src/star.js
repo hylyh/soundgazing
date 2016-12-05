@@ -73,7 +73,7 @@ class Star {
 
     // Draw the star itself
     graphics.beginFill(0xffffff, this.alpha);
-    graphics.drawCircle(pixPos.x, pixPos.y, (this.size + 0.5) * 0.9);
+    graphics.drawCircle(pixPos.x, pixPos.y, (this.size + 4) * 0.5);
     graphics.endFill();
 
     if (this.rippling) {
