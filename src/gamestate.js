@@ -205,6 +205,7 @@ class GameState extends Phaser.State {
   }
 
   resize() {
+    this.usBg.y = this.game.height
     this.usBg.height = this.game.width / this.usBg.width * this.usBg.height;
     this.usBg.width = this.game.width;
   }
