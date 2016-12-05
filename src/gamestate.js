@@ -296,7 +296,7 @@ class GameState extends Phaser.State {
     for (let i = 0; i < num; i++) {
       this.stars[i] = new Star(this.game, i,
                                Math.random() * 2 - 1, // x
-                               Math.random() * 2 - 1, // y
+                               Math.random() * 1.6 - 1, // y
                                Math.round(Math.random() * 6)); // size
     }
   }
