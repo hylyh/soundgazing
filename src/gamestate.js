@@ -76,7 +76,7 @@ class GameState extends Phaser.State {
     }
 
     document.getElementById('share').onclick = (e) => {
-      this.shortenUrl(`http://jayhay.me/self-care-jam#${this.getShareUrl()}`, (surl) => {
+      this.shortenUrl(`http://jayhay.me/soundgazing#${this.getShareUrl()}`, (surl) => {
         document.getElementById('link').innerHTML = `<a href="${surl}" target="_blank">${surl}</a>`;
       });
       e.preventDefault();

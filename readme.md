@@ -1,4 +1,4 @@
-# self-care-jam
+# soundgazing
 
 ## how to do
 

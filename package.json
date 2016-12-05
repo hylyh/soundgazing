@@ -1,5 +1,5 @@
 {
-  "name": "self-care-jam",
+  "name": "soundgazing",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/jessicahayley/self-care-jam.git"
+    "url": "git+ssh://git@github.com/jessicahayley/soundgazing.git"
   },
   "author": "",
   "contributors": [
@@ -18,9 +18,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jessicahayley/self-care-jam/issues"
+    "url": "https://github.com/jessicahayley/soundgazing/issues"
   },
-  "homepage": "https://github.com/jessicahayley/self-care-jam/#readme",
+  "homepage": "https://github.com/jessicahayley/soundgazing/#readme",
   "dependencies": {
     "pf-perlin": "^1.0.5"
   },
