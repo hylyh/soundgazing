@@ -14,6 +14,7 @@ class Star {
     this.hovered = false;
 
     this.rippling = false;
+    this.rippleFilled = false;
     this.rippleRad = 0;
     this.maxRipple = 0;
     this.rippleSpeed = 0;
@@ -56,9 +57,15 @@ class Star {
     graphics.endFill();
 
     if (this.rippling) {
-      graphics.beginFill(0xffffff, (this.maxRipple - this.rippleRad) / this.maxRipple);
-      graphics.drawCircle(pixPos.x, pixPos.y, this.rippleRad);
-      graphics.endFill();
+      if (this.rippleFilled) {
+        graphics.beginFill(0xffffff, (this.maxRipple - this.rippleRad) / this.maxRipple);
+        graphics.drawCircle(pixPos.x, pixPos.y, this.rippleRad);
+        graphics.endFill();
+      } else {
+        graphics.lineStyle(1, 0xffffff, (this.maxRipple - this.rippleRad) / this.maxRipple);
+        graphics.drawCircle(pixPos.x - 0.5, pixPos.y - 0.5, this.rippleRad);
+        graphics.lineStyle();
+      }
     }
   }
 
@@ -74,13 +81,15 @@ class Star {
     if (loud) {
       this.game.state.getCurrentState().starSounds.loud[this.size].play();
       this.rippleRad = 5;
-      this.maxRipple = 30;
+      this.maxRipple = 50;
       this.rippleSpeed = 0.25;
+      this.rippleFilled = false;
     } else {
       this.game.state.getCurrentState().starSounds.soft[this.size].play();
       this.rippleRad = 0;
       this.maxRipple = 15;
       this.rippleSpeed = 0.5;
+      this.rippleFilled = true;
     }
   }
 }
