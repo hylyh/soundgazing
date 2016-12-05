@@ -69,7 +69,7 @@ class GameState extends Phaser.State {
     if (window.location.hash !== '') {
       // If there's something in the hash, try to load it
       this.loadStars(window.location.hash);
-      // window.location.hash = '';
+      window.location.hash = '';
     } else {
       // Otherwise, randomly create some stars
       this.genStars(100);
