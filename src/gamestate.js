@@ -94,6 +94,7 @@ class GameState extends Phaser.State {
 
       const starPos = star.getPixelPos();
       star.hovered = false;
+      star.clicked = false;
 
       // Get the distance from the star to the pointer
       const dist = Math.sqrt((pointer.x - starPos.x) * (pointer.x - starPos.x) +
@@ -125,6 +126,7 @@ class GameState extends Phaser.State {
       if (pointer.isDown && !this.pointerLastDown) {
         this.dragStartStar = closestStar;
         this.starSounds.loud[this.dragStartStar.size].play();
+        this.dragStartStar.clicked = true;
       }
       if (pointer.isUp && !this.pointerLastUp) {
         if (this.dragStartStar !== null && closestStar !== this.dragStartStar) {

@@ -9,10 +9,18 @@ class Star {
     this.x = x;
     this.y = y;
     this.size = size;
-
     this.alpha = 1;
 
     this.hovered = false;
+    this.lastHovered = false;
+
+    this.clicked = false;
+    this.lastClicked = false;
+
+    this.rippling = false;
+    this.rippleRad = 0;
+    this.maxRipple = 0;
+    this.rippleSpeed = 0;
 
     this.startTime = new Date().getTime();
 
@@ -21,6 +29,31 @@ class Star {
 
   update() {
     this.alpha = this.perlin.get((new Date().getTime() - this.startTime) / 200);
+
+    if (this.hovered && !this.lastHovered) {
+      this.rippling = true;
+      this.rippleRad = 0;
+      this.maxRipple = 15;
+      this.rippleSpeed = 0.5;
+    }
+
+    if (this.clicked && !this.lastClicked) {
+      this.rippling = true;
+      this.rippleRad = 5;
+      this.maxRipple = 30;
+      this.rippleSpeed = 0.25;
+    }
+
+    if (this.rippling) {
+      this.rippleRad += this.rippleSpeed;
+
+      if (this.rippleRad > this.maxRipple) {
+        this.rippling = false;
+      }
+    }
+
+    this.lastHovered = this.hovered;
+    this.lastClicked = this.clicked;
   }
 
   draw(graphics) {
@@ -42,6 +75,12 @@ class Star {
     graphics.beginFill(0xffffff, this.alpha);
     graphics.drawCircle(pixPos.x, pixPos.y, (this.size + 0.5) * 0.9);
     graphics.endFill();
+
+    if (this.rippling) {
+      graphics.beginFill(0xffffff, (this.maxRipple - this.rippleRad) / this.maxRipple);
+      graphics.drawCircle(pixPos.x, pixPos.y, this.rippleRad);
+      graphics.endFill();
+    }
   }
 
   getPixelPos() {
