@@ -51,7 +51,7 @@ gulp.task('buildjs', () =>
   gulp.src('./src/main.js')
     .pipe(jspm({
       selfExecutingBundle: true,
-      minify: true,
+      // minify: true,
       skipSourceMaps: true,
     }))
     .pipe(rename('app.min.js'))
